@@ -6,10 +6,9 @@ def status():
     added_files = []
     modified_files = []
 
-    index_path = os.path.join('.goku', 'index')
-    if os.path.exists(index_path):
-        with open(index_path, 'r') as index_file:
-            index_entries = [line.strip().split() for line in index_file.readlines()]
+    if os.path.exists(os.path.join('.goku', 'index')):
+        with open(os.path.join('.goku', 'index'), 'r') as index_file:
+            index_entries = [line.split() for line in index_file.readlines()]
     else:
         index_entries = []
 
@@ -26,22 +25,22 @@ def status():
             if file in index_files:
                 with open(file_path, 'rb') as f:
                     file_hash = hashlib.sha1(f.read()).hexdigest()
-                if file_hash!= index_files[file]:
+                if file_hash != index_files[file]:
                     modified_files.append(file_path)
             else:
                 untracked_files.append(file_path)
 
-    # Added files are those present in the index but not in the filesystem
-    added_files = set(index_files.keys()) - set(files)
+    added_files = list(index_files.keys())
 
     print("Untracked files:")
     for file in untracked_files:
         print(file)
     print("\nAdded files:")
-    for file in sorted(added_files):  # Sorting for consistency
+    for file in added_files:
         print(file)
     print("\nModified files:")
-    for file in sorted(modified_files):  # Sorting for consistency
+    for file in modified_files:
         print(file)
 
     return untracked_files, added_files, modified_files
+

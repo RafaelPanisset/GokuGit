@@ -8,7 +8,7 @@ def status():
 
     if os.path.exists(os.path.join('.goku', 'index')):
         with open(os.path.join('.goku', 'index'), 'r') as index_file:
-            index_entries = [line.split() for line in index_file.readlines()]
+            index_entries = [line.strip().split(maxsplit=1) for line in index_file.readlines()]
     else:
         index_entries = []
 
@@ -18,17 +18,17 @@ def status():
         if '.goku' in dirs:
             dirs.remove('.goku')
         for file in files:
-            file_path = os.path.join(root, file)
-            if file_path.startswith('./.goku'):
+            rel_path = os.path.relpath(os.path.join(root, file))
+            if rel_path.startswith('.goku'):
                 continue
 
-            if file in index_files:
-                with open(file_path, 'rb') as f:
+            if rel_path in index_files:
+                with open(rel_path, 'rb') as f:
                     file_hash = hashlib.sha1(f.read()).hexdigest()
-                if file_hash != index_files[file]:
-                    modified_files.append(file_path)
+                if file_hash != index_files[rel_path]:
+                    modified_files.append(rel_path)
             else:
-                untracked_files.append(file_path)
+                untracked_files.append(rel_path)
 
     added_files = list(index_files.keys())
 
@@ -43,4 +43,3 @@ def status():
         print(file)
 
     return untracked_files, added_files, modified_files
-

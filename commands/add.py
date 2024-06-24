@@ -4,6 +4,12 @@ import zlib
 from utils.file_operations import calculate_file_hash
 
 def add(file_name):
+    """
+    Add a file to the Goku repository's staging area.
+    
+    This function reads the file, calculates its hash, stores it as an object,
+    and updates the index with the new file information.
+    """
     file_path = os.path.relpath(file_name)
     if not os.path.exists(file_path):
         print(f"Error: {file_path} does not exist")

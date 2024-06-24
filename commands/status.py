@@ -2,6 +2,13 @@ import os
 from utils.file_operations import calculate_file_hash
 
 def status():
+    """
+    Display the status of the Goku repository.
+    
+    This function checks the current state of files in the working directory
+    against the index, categorizing them as untracked, added, or modified.
+    """
+    
     untracked_files = []
     added_files = []
     modified_files = []

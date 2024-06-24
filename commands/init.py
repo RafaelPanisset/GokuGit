@@ -2,6 +2,13 @@ import os
 from utils.file_operations import create_file
 
 def initialize_goku_repository(path):
+    """
+    Initialize a new Goku repository at the specified path.
+    
+    This function creates the necessary directory structure and files
+    for a Goku repository, similar to Git's initialization process.
+    """
+
     goku_structure = {
         "HEAD": "ref: refs/heads/master",
         "config": '[core]\n\trepositoryformatversion = 0\n\tfilemode = true\n\tbare = false\n\tlogallrefupdates = true\n',

@@ -24,13 +24,14 @@ def status():
 
             if rel_path in index_files:
                 with open(rel_path, 'rb') as f:
-                    file_hash = hashlib.sha1(f.read()).hexdigest()
+                    content = f.read()
+                file_hash = hashlib.sha1(b"blob " + str(len(content)).encode() + b"\0" + content).hexdigest()
                 if file_hash != index_files[rel_path]:
                     modified_files.append(rel_path)
+                else:
+                    added_files.append(rel_path)
             else:
                 untracked_files.append(rel_path)
-
-    added_files = list(index_files.keys())
 
     print("Untracked files:")
     for file in untracked_files:

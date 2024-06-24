@@ -1,10 +1,7 @@
-import os 
-import hashlib
-import zlib 
 
-import os
-import hashlib
-import zlib
+import os 
+import zlib 
+from utils.file_operations import calculate_file_hash
 
 def add(file_name):
     file_path = os.path.relpath(file_name)
@@ -15,11 +12,11 @@ def add(file_name):
     with open(file_path, 'rb') as f:
         content = f.read()
     
-    # Create the object
-    file_hash = hashlib.sha1(b"blob " + str(len(content)).encode() + b"\0" + content).hexdigest()
+    file_hash = calculate_file_hash(content)
+    
+    # Store the file content as an object
     object_path = os.path.join('.goku', 'objects', file_hash[:2], file_hash[2:])
     os.makedirs(os.path.dirname(object_path), exist_ok=True)
-    
     with open(object_path, 'wb') as f:
         f.write(zlib.compress(content))
 

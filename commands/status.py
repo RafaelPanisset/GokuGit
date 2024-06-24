@@ -1,19 +1,20 @@
 import os
-import hashlib
+from utils.file_operations import calculate_file_hash
 
 def status():
     untracked_files = []
     added_files = []
     modified_files = []
 
-    if os.path.exists(os.path.join('.goku', 'index')):
-        with open(os.path.join('.goku', 'index'), 'r') as index_file:
-            index_entries = [line.strip().split(maxsplit=1) for line in index_file.readlines()]
-    else:
-        index_entries = []
+    # Read the index
+    index_path = os.path.join('.goku', 'index')
+    index_files = {}
+    if os.path.exists(index_path):
+        with open(index_path, 'r') as index_file:
+            index_entries = [line.strip().split(maxsplit=1) for line in index_file]
+            index_files = {entry[1]: entry[0] for entry in index_entries}
 
-    index_files = {entry[1]: entry[0] for entry in index_entries}
-
+    # Walk through the directory
     for root, dirs, files in os.walk('.'):
         if '.goku' in dirs:
             dirs.remove('.goku')
@@ -25,7 +26,7 @@ def status():
             if rel_path in index_files:
                 with open(rel_path, 'rb') as f:
                     content = f.read()
-                file_hash = hashlib.sha1(b"blob " + str(len(content)).encode() + b"\0" + content).hexdigest()
+                file_hash = calculate_file_hash(content)
                 if file_hash != index_files[rel_path]:
                     modified_files.append(rel_path)
                 else:
@@ -33,6 +34,7 @@ def status():
             else:
                 untracked_files.append(rel_path)
 
+    # Print status
     print("Untracked files:")
     for file in untracked_files:
         print(file)

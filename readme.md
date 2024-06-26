@@ -1,4 +1,4 @@
-# A simplified version control system
+# A simplified version control system (Git)
 
 The Goku repository management system is a command-line tool for managing Git-like repositories. It provides basic features for initializing, adding, committing, and diffing files in a repository.
 

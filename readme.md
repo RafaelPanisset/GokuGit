@@ -76,7 +76,3 @@ Here are some planned features and improvements:
    - Push to and pull from remote repositories.
    - Clone remote repositories.
 
-3. **Enhanced Diffing:**
-   - Provide more detailed and user-friendly diff outputs.
-   - Support for diffing binary files.
-

@@ -1,7 +1,7 @@
 import os
 import shutil
 import pytest
-from commands.init import initialize_goku_repository
+from commands.init import init
 from commands.add import add
 from commands.status import status
 from commands.commit import write_tree
@@ -23,7 +23,7 @@ def setup_and_teardown():
 
 def test_initialize_goku_repository():
     test_path = "test_repo"
-    initialize_goku_repository(test_path)
+    init(test_path)
     
     assert os.path.exists(os.path.join(test_path, ".goku"))
     assert os.path.exists(os.path.join(test_path, ".goku", "HEAD"))

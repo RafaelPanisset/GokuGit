@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
-from commands.init import initialize_goku_repository
+from commands.init import init
 from commands.add import add
 from commands.status import status
 from commands.commit import commit
@@ -29,7 +29,7 @@ def main():
     args = parser.parse_args()
 
     if args.command == 'init':
-        initialize_goku_repository(args.path)
+        init(args.path)
     elif args.command == 'add':
         add(args.file_name)
     elif args.command == 'status':

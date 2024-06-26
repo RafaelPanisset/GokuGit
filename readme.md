@@ -64,5 +64,19 @@ Show the differences between the index and working directory.
 
 ![Initialize repository](assets/diff-repo.gif)
 
+## Future Improvements
 
+Here are some planned features and improvements:
+
+1. **Branch Management:**
+   - Create, list, and switch branches.
+   - Merge branches.
+
+2. **Remote Repositories:**
+   - Push to and pull from remote repositories.
+   - Clone remote repositories.
+
+3. **Enhanced Diffing:**
+   - Provide more detailed and user-friendly diff outputs.
+   - Support for diffing binary files.
 

@@ -1,7 +1,7 @@
 import os
 from utils.file_operations import create_file
 
-def initialize_goku_repository(path):
+def init(path):
     """
     Initialize a new Goku repository at the specified path.
     
